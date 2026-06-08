@@ -10,12 +10,14 @@ const { lang = "es", t = es } = Astro.props;
     <a href={lang === "en" ? "/en/" : "/"} class="font-medieval text-lg tracking-wider text-amber-400 hover:text-amber-300 transition-colors">
       BFE
     </a>
-    <button data-menu-toggle class="md:hidden rounded p-2 text-neutral-300 hover:text-amber-400 transition-colors" aria-label={t.menuOpen} aria-expanded="false" data-label-open={t.menuOpen} data-label-close={t.menuClose}>
-      <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path class="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+    <button data-menu-toggle class="group md:hidden rounded p-2 text-neutral-300 hover:text-amber-400 transition-colors relative z-50" aria-label={t.menuOpen} aria-expanded="false" data-label-open={t.menuOpen} data-label-close={t.menuClose}>
+      <svg class="h-6 w-6 overflow-visible" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path class="line-top transition-all duration-300 ease-in-out" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16" />
+        <path class="line-middle transition-all duration-300 ease-in-out" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 12h16" />
+        <path class="line-bottom transition-all duration-300 ease-in-out" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 18h16" />
       </svg>
     </button>
-    <ul data-menu class="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-300 max-md:fixed max-md:inset-0 max-md:z-40 max-md:flex-col max-md:justify-center max-md:gap-8 max-md:bg-neutral-950/95 max-md:backdrop-blur-lg" aria-label="Secciones de la página">
+    <ul data-menu class="md:flex items-center gap-6 text-sm font-medium text-neutral-300 max-md:fixed max-md:inset-0 max-md:z-40 max-md:flex max-md:flex-col max-md:items-center max-md:justify-center max-md:gap-10 max-md:bg-neutral-950/95 max-md:backdrop-blur-lg max-md:transition-all max-md:duration-300 max-md:ease-in-out max-md:opacity-0 max-md:invisible max-md:scale-95" aria-label="Secciones de la página">
       {t.header.links.map((link) => (
         <li>
           <a href={link.href} class="hover:text-amber-400 transition-colors max-md:text-2xl max-md:font-semibold">
@@ -44,25 +46,49 @@ const { lang = "es", t = es } = Astro.props;
   </nav>
 </header>
 
+<style>
+  [data-menu].open {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: scale(1) !important;
+    pointer-events: auto !important;
+  }
+  [data-menu-toggle][aria-expanded="true"] .line-top {
+    transform: translateY(6px) rotate(45deg);
+  }
+  [data-menu-toggle][aria-expanded="true"] .line-middle {
+    opacity: 0;
+  }
+  [data-menu-toggle][aria-expanded="true"] .line-bottom {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+</style>
+
 <script>
-  const toggle: HTMLElement | null = document.querySelector("[data-menu-toggle]");
-  const menu: HTMLElement | null = document.querySelector("[data-menu]");
+  const toggle = document.querySelector("[data-menu-toggle]");
+  const menu = document.querySelector("[data-menu]");
+  const html = document.documentElement;
+
   if (toggle && menu) {
     const openLabel = toggle.dataset.labelOpen || "Abrir menú";
     const closeLabel = toggle.dataset.labelClose || "Cerrar menú";
 
+    function closeMenu() {
+      menu.classList.remove("open");
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.setAttribute("aria-label", openLabel);
+      html.style.overflow = "";
+    }
+
     toggle.addEventListener("click", () => {
-      const isOpen = !menu.classList.toggle("hidden");
+      const isOpen = menu.classList.toggle("open");
       toggle.setAttribute("aria-expanded", String(isOpen));
       toggle.setAttribute("aria-label", isOpen ? closeLabel : openLabel);
+      html.style.overflow = isOpen ? "hidden" : "";
     });
 
     menu.querySelectorAll("a").forEach((link) => {
-      link.addEventListener("click", () => {
-        menu.classList.add("hidden");
-        toggle.setAttribute("aria-expanded", "false");
-        toggle.setAttribute("aria-label", openLabel);
-      });
+      link.addEventListener("click", closeMenu);
     });
   }
 
