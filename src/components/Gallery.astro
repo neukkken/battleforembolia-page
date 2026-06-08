@@ -7,14 +7,19 @@ import ss3 from "../assets/images/screenshots/ss3.jpg";
 import ss4 from "../assets/images/screenshots/ss4.jpg";
 import ss5 from "../assets/images/screenshots/ss5.jpg";
 import ss6 from "../assets/images/screenshots/ss6.jpg";
+import ss1m from "../assets/images/screenshots/ss1-modal.webp";
+import ss2m from "../assets/images/screenshots/ss2-modal.webp";
+import ss3m from "../assets/images/screenshots/ss3-modal.webp";
+import ss4m from "../assets/images/screenshots/ss4-modal.webp";
+import ss5m from "../assets/images/screenshots/ss5-modal.webp";
+import ss6m from "../assets/images/screenshots/ss6-modal.webp";
 
 const images = [ss1, ss2, ss3, ss4, ss5, ss6];
 
 const screenshots = images.map((img) => img.src);
+const modalImgs = [ss1m, ss2m, ss3m, ss4m, ss5m, ss6m].map((img) => img.src);
 
 const { t = es } = Astro.props;
-
-const fullImages = screenshots;
 ---
 
 <section id="gallery" class="px-4 py-24" data-gallery>
@@ -84,28 +89,64 @@ const fullImages = screenshots;
       </svg>
     </button>
 
+    <div data-modal-spinner class="absolute inset-0 flex items-center justify-center">
+      <div class="h-8 w-8 animate-spin rounded-full border-2 border-neutral-600 border-t-amber-400" />
+    </div>
     <img data-modal-img class="max-h-[90vh] max-w-full rounded-lg object-contain" alt="" />
   </div>
 </section>
 
-<script define:vars={{ fullImages, t }}>
-  const images = fullImages;
+<script define:vars={{ modalImgs, t }}>
+  const images = modalImgs;
   const gallery = document.querySelector("[data-gallery]");
   if (!gallery) return;
 
   const thumbs = gallery.querySelectorAll("[data-gallery-thumb]");
   const modal = gallery.querySelector("[data-modal]");
   const modalImg = modal.querySelector("[data-modal-img]");
+  const spinner = modal.querySelector("[data-modal-spinner]");
   const closeBtn = modal.querySelector("[data-modal-close]");
   const prevBtn = modal.querySelector("[data-modal-prev]");
   const nextBtn = modal.querySelector("[data-modal-next]");
 
   let currentIndex = 0;
+  let cache = {};
+
+  function showImg(idx) {
+    if (cache[idx]) {
+      modalImg.src = cache[idx];
+      modalImg.alt = "Screenshot " + (idx + 1);
+      spinner.classList.add("hidden");
+    } else {
+      modalImg.src = "";
+      modalImg.alt = t.gallery.loading;
+      spinner.classList.remove("hidden");
+      const img = new Image();
+      img.onload = () => {
+        cache[idx] = img.src;
+        modalImg.src = img.src;
+        modalImg.alt = "Screenshot " + (idx + 1);
+        spinner.classList.add("hidden");
+      };
+      img.onerror = () => {
+        modalImg.alt = t.gallery.error;
+        spinner.classList.add("hidden");
+      };
+      img.src = images[idx];
+    }
+  }
+
+  function prefetch(idx) {
+    const i = (idx + images.length) % images.length;
+    if (!cache[i]) {
+      const img = new Image();
+      img.onload = () => { cache[i] = img.src; };
+      img.src = images[i];
+    }
+  }
 
   function openModal(index) {
     currentIndex = index;
-    modalImg.src = "";
-    modalImg.alt = t.gallery.loading;
     modal.classList.remove("hidden");
     modal.classList.add("flex");
     document.body.style.overflow = "hidden";
@@ -113,15 +154,9 @@ const fullImages = screenshots;
 
     document.querySelectorAll("[data-gallery] > *:not([data-modal])").forEach((el) => el.setAttribute("inert", ""));
 
-    const img = new Image();
-    img.onload = () => {
-      modalImg.src = images[currentIndex];
-      modalImg.alt = "Screenshot " + (currentIndex + 1);
-    };
-    img.onerror = () => {
-      modalImg.alt = t.gallery.error;
-    };
-    img.src = images[currentIndex];
+    showImg(currentIndex);
+    prefetch(currentIndex + 1);
+    prefetch(currentIndex - 1);
   }
 
   function closeModal() {
@@ -133,14 +168,14 @@ const fullImages = screenshots;
 
   function prevImage() {
     currentIndex = (currentIndex - 1 + images.length) % images.length;
-    modalImg.src = images[currentIndex];
-    modalImg.alt = "Screenshot " + (currentIndex + 1) + " de Battle For Embolia";
+    showImg(currentIndex);
+    prefetch(currentIndex - 1);
   }
 
   function nextImage() {
     currentIndex = (currentIndex + 1) % images.length;
-    modalImg.src = images[currentIndex];
-    modalImg.alt = "Screenshot " + (currentIndex + 1) + " de Battle For Embolia";
+    showImg(currentIndex);
+    prefetch(currentIndex + 1);
   }
 
   thumbs.forEach((thumb, i) => {
@@ -161,4 +196,14 @@ const fullImages = screenshots;
     if (e.key === "ArrowLeft") prevImage();
     if (e.key === "ArrowRight") nextImage();
   });
+
+  const observer = new IntersectionObserver((entries) => {
+    for (const entry of entries) {
+      if (entry.isIntersecting) {
+        images.forEach((src, i) => prefetch(i));
+        observer.disconnect();
+      }
+    }
+  }, { rootMargin: "200px" });
+  observer.observe(gallery);
 </script>
