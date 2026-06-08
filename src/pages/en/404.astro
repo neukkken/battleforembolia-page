@@ -1,0 +1,25 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Page not found — Battle For Embolia">
+  <section class="flex min-h-screen flex-col items-center justify-center px-4 text-center">
+    <h1 class="font-medieval text-6xl text-amber-400 md:text-8xl">404</h1>
+    <p class="mt-4 text-lg text-neutral-400">Page not found</p>
+    <p class="mt-2 text-sm text-neutral-600">The page you are looking for does not exist or has been moved.</p>
+    <div class="mt-8 flex gap-4">
+      <a
+        href="/"
+        class="inline-flex items-center gap-2 rounded-lg bg-amber-500 px-6 py-3 font-bold text-neutral-950 hover:bg-amber-400 transition-colors"
+      >
+        Spanish homepage
+      </a>
+      <a
+        href="/en/"
+        class="inline-flex items-center gap-2 rounded-lg border border-neutral-700 px-6 py-3 font-semibold text-neutral-300 hover:border-amber-500 hover:text-amber-400 transition-colors"
+      >
+        English homepage
+      </a>
+    </div>
+  </section>
+</BaseLayout>

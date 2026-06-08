@@ -1,0 +1,41 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/Header.astro";
+import Hero from "../../components/Hero.astro";
+import Trailer from "../../components/Trailer.astro";
+import About from "../../components/About.astro";
+import Features from "../../components/Features.astro";
+import SystemRequirements from "../../components/SystemRequirements.astro";
+import Languages from "../../components/Languages.astro";
+import Gallery from "../../components/Gallery.astro";
+import Roadmap from "../../components/Roadmap.astro";
+import FAQ from "../../components/FAQ.astro";
+import Developer from "../../components/Developer.astro";
+import Community from "../../components/Community.astro";
+import Footer from "../../components/Footer.astro";
+import ScrollToTop from "../../components/ScrollToTop.astro";
+import { en } from "../../i18n/index";
+---
+
+<BaseLayout lang="en" title="Battle For Embolia — Free indie MMORPG" description="Battle For Embolia is a fast-paced indie MMORPG with dynamic combat, meaningful progression, and constant updates. Free to play, no pay-to-win.">
+  <Header lang="en" t={en} />
+  <Hero t={en} />
+  <Trailer t={en} />
+  <About t={en} />
+  <Features t={en} />
+  <SystemRequirements t={en} />
+  <Languages t={en.languages} />
+  <Gallery t={en} />
+  <Roadmap t={en} />
+  <FAQ t={en} />
+  <Developer t={en} />
+  <Community t={en} />
+  <Footer t={en} />
+  <ScrollToTop t={en} />
+</BaseLayout>
+
+<style is:global>
+  html {
+    scroll-behavior: smooth;
+  }
+</style>

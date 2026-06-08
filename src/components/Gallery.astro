@@ -1,0 +1,161 @@
+---
+import { es } from "../i18n";
+import ss1 from "../assets/images/screenshots/ss1.jpg";
+import ss2 from "../assets/images/screenshots/ss2.jpg";
+import ss3 from "../assets/images/screenshots/ss3.jpg";
+import ss4 from "../assets/images/screenshots/ss4.jpg";
+import ss5 from "../assets/images/screenshots/ss5.jpg";
+import ss6 from "../assets/images/screenshots/ss6.jpg";
+
+const localImgs = [ss1, ss2, ss3, ss4, ss5, ss6];
+
+const screenshots = localImgs.map((img) => img.src);
+
+const { t = es } = Astro.props;
+
+const fullImages = screenshots;
+---
+
+<section id="gallery" class="px-4 py-24" data-gallery>
+  <div class="mx-auto max-w-6xl">
+    <h2 class="text-center font-medieval text-3xl text-amber-400 md:text-4xl reveal">{t.gallery.title}</h2>
+    <div class="mt-12 columns-1 gap-4 sm:columns-2 lg:columns-3">
+      {screenshots.map((src, i) => (
+        <button
+          data-gallery-thumb={i}
+          class="group relative mb-4 block w-full overflow-hidden rounded-lg border border-neutral-800 text-left cursor-pointer reveal transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-amber-500/10 hover:border-amber-500/30"
+          style={`transition-delay: ${i * 0.1}s`}
+        >
+          <img
+            src={src}
+            alt={`${t.gallery.alt} ${i + 1}`}
+            class="w-full transition-transform duration-300 group-hover:scale-105"
+            loading="lazy"
+          />
+          <div class="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors group-hover:bg-black/40">
+            <span class="rounded-full bg-white/20 p-3 text-white opacity-0 transition-opacity group-hover:opacity-100">
+              <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </span>
+          </div>
+        </button>
+      ))}
+    </div>
+  </div>
+
+  <div
+    data-modal
+    class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/90 px-4"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Galería de imágenes"
+  >
+    <button
+      data-modal-close
+      class="absolute right-4 top-4 z-10 rounded-full bg-white/10 p-2 text-white hover:bg-white/20 transition-colors"
+      aria-label={t.gallery.close}
+    >
+      <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+
+    <button
+      data-modal-prev
+      class="absolute left-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/10 p-3 text-white hover:bg-white/20 transition-colors"
+      aria-label={t.gallery.prev}
+    >
+      <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+    </button>
+
+    <button
+      data-modal-next
+      class="absolute right-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/10 p-3 text-white hover:bg-white/20 transition-colors"
+      aria-label={t.gallery.next}
+    >
+      <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+    </button>
+
+    <img data-modal-img class="max-h-[90vh] max-w-full rounded-lg object-contain" alt="" />
+  </div>
+</section>
+
+<script define:vars={{ fullImages, t }}>
+  const images = fullImages;
+  const gallery = document.querySelector("[data-gallery]");
+  if (!gallery) return;
+
+  const thumbs = gallery.querySelectorAll("[data-gallery-thumb]");
+  const modal = gallery.querySelector("[data-modal]");
+  const modalImg = modal.querySelector("[data-modal-img]");
+  const closeBtn = modal.querySelector("[data-modal-close]");
+  const prevBtn = modal.querySelector("[data-modal-prev]");
+  const nextBtn = modal.querySelector("[data-modal-next]");
+
+  let currentIndex = 0;
+
+  function openModal(index) {
+    currentIndex = index;
+    modalImg.src = "";
+    modalImg.alt = t.gallery.loading;
+    modal.classList.remove("hidden");
+    modal.classList.add("flex");
+    document.body.style.overflow = "hidden";
+    closeBtn.focus();
+
+    document.querySelectorAll("[data-gallery] > *:not([data-modal])").forEach((el) => el.setAttribute("inert", ""));
+
+    const img = new Image();
+    img.onload = () => {
+      modalImg.src = images[currentIndex];
+      modalImg.alt = "Screenshot " + (currentIndex + 1);
+    };
+    img.onerror = () => {
+      modalImg.alt = t.gallery.error;
+    };
+    img.src = images[currentIndex];
+  }
+
+  function closeModal() {
+    modal.classList.add("hidden");
+    modal.classList.remove("flex");
+    document.body.style.overflow = "";
+    document.querySelectorAll("[inert]").forEach((el) => el.removeAttribute("inert"));
+  }
+
+  function prevImage() {
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    modalImg.src = images[currentIndex];
+    modalImg.alt = "Screenshot " + (currentIndex + 1) + " de Battle For Embolia";
+  }
+
+  function nextImage() {
+    currentIndex = (currentIndex + 1) % images.length;
+    modalImg.src = images[currentIndex];
+    modalImg.alt = "Screenshot " + (currentIndex + 1) + " de Battle For Embolia";
+  }
+
+  thumbs.forEach((thumb, i) => {
+    thumb.addEventListener("click", () => openModal(i));
+  });
+
+  closeBtn.addEventListener("click", closeModal);
+  prevBtn.addEventListener("click", prevImage);
+  nextBtn.addEventListener("click", nextImage);
+
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (!modal.classList.contains("flex")) return;
+    if (e.key === "Escape") closeModal();
+    if (e.key === "ArrowLeft") prevImage();
+    if (e.key === "ArrowRight") nextImage();
+  });
+</script>

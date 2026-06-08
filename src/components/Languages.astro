@@ -1,0 +1,53 @@
+---
+interface Props {
+  t: { title: string; description: string };
+}
+
+const { t } = Astro.props;
+
+const languages = [
+  { name: "Español (Latinoamérica)", code: "ES-MX", interface: true, audio: true, subs: true },
+  { name: "Español (España)", code: "ES", interface: true, audio: false, subs: true },
+  { name: "English", code: "EN", interface: true, audio: true, subs: true },
+  { name: "Português - Brasil", code: "PT", interface: true, audio: false, subs: true },
+  { name: "Chino simplificado", code: "ZH", interface: true, audio: false, subs: true },
+  { name: "Japonés", code: "JA", interface: true, audio: false, subs: true },
+  { name: "Alemán", code: "DE", interface: true, audio: false, subs: true },
+  { name: "Ruso", code: "RU", interface: true, audio: false, subs: true },
+  { name: "Coreano", code: "KO", interface: true, audio: false, subs: true },
+  { name: "Árabe", code: "AR", interface: true, audio: false, subs: true },
+  { name: "Chino tradicional", code: "ZH-TW", interface: true, audio: false, subs: true },
+];
+---
+
+<section id="languages" class="bg-neutral-900 px-4 py-24">
+  <div class="mx-auto max-w-5xl">
+    <h2 class="text-center font-medieval text-3xl text-amber-400 md:text-4xl reveal">{t.title}</h2>
+    <p class="mt-4 text-center text-neutral-400 reveal reveal-delay-1">{t.description}</p>
+    <div class="mt-10 overflow-hidden rounded-lg border border-neutral-800 reveal reveal-delay-2">
+      <table class="w-full text-left text-sm">
+        <thead class="border-b border-neutral-800 bg-neutral-950">
+          <tr>
+            <th class="px-4 py-3 font-semibold text-neutral-400">Idioma</th>
+            <th class="px-4 py-3 text-center font-semibold text-neutral-400">Interfaz</th>
+            <th class="px-4 py-3 text-center font-semibold text-neutral-400">Voces</th>
+            <th class="px-4 py-3 text-center font-semibold text-neutral-400">Subtítulos</th>
+          </tr>
+        </thead>
+        <tbody>
+          {languages.map((lang) => (
+            <tr class="border-b border-neutral-800 transition-colors hover:bg-neutral-800/30">
+              <td class="flex items-center gap-2 px-4 py-3">
+                <span class="text-white">{lang.name}</span>
+                <span class="text-[10px] font-semibold uppercase tracking-wider text-neutral-600">{lang.code}</span>
+              </td>
+              <td class="px-4 py-3 text-center">{lang.interface ? <span class="text-emerald-400 font-bold">✓</span> : <span class="text-neutral-700">—</span>}</td>
+              <td class="px-4 py-3 text-center">{lang.audio ? <span class="text-emerald-400 font-bold">✓</span> : <span class="text-neutral-700">—</span>}</td>
+              <td class="px-4 py-3 text-center">{lang.subs ? <span class="text-emerald-400 font-bold">✓</span> : <span class="text-neutral-700">—</span>}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

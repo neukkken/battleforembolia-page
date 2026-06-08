@@ -1,0 +1,37 @@
+---
+import { Icon } from "astro-icon/components";
+import { es } from "../i18n";
+
+const { t = es } = Astro.props;
+
+const specs = [
+  { icon: "lucide:monitor", label: t.systemReq.os, value: "Windows 11 (64-bit)" },
+  { icon: "lucide:cpu", label: t.systemReq.processor, value: "Quad core 2.6GHz" },
+  { icon: "lucide:server", label: t.systemReq.memory, value: "8 GB RAM" },
+  { icon: "lucide:monitor-check", label: t.systemReq.graphics, value: "NVIDIA GTX 650 Ti / AMD HD 7850" },
+  { icon: "lucide:package", label: t.systemReq.directx, value: "Version 12" },
+  { icon: "lucide:wifi", label: t.systemReq.network, value: "Broadband Internet" },
+  { icon: "lucide:hard-drive", label: t.systemReq.storage, value: "10 GB" },
+];
+---
+
+<section id="requirements" class="bg-neutral-950 px-4 py-24">
+  <div class="mx-auto max-w-3xl">
+    <h2 class="text-center font-medieval text-3xl text-amber-400 md:text-4xl reveal">{t.systemReq.title}</h2>
+    <p class="mt-4 text-center text-neutral-400 reveal reveal-delay-1">{t.systemReq.description}</p>
+    <div class="mt-10 grid gap-3 reveal reveal-delay-2 sm:grid-cols-2">
+      {specs.map((spec) => (
+        <div class="flex items-center gap-4 rounded-lg border border-neutral-800 bg-neutral-950 px-5 py-4 transition-colors hover:border-amber-500/30">
+          <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-amber-500/10">
+            <Icon name={spec.icon} class="h-5 w-5 text-amber-400" />
+          </div>
+          <div>
+            <p class="text-xs font-medium uppercase tracking-wider text-neutral-500">{spec.label}</p>
+            <p class="text-sm font-medium text-white">{spec.value}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+    <p class="mt-6 text-center text-xs text-neutral-600 reveal reveal-delay-3">* Requiere sistema operativo y procesador de 64 bits</p>
+  </div>
+</section>

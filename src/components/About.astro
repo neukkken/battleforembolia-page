@@ -1,0 +1,43 @@
+---
+import { Icon } from "astro-icon/components";
+import { es } from "../i18n";
+
+const { t = es } = Astro.props;
+---
+
+<section id="about" class="px-4 py-24">
+  <div class="mx-auto max-w-3xl text-center">
+    <h2 class="font-medieval text-3xl text-amber-400 md:text-4xl reveal">{t.about.title}</h2>
+    <p class="mt-6 text-lg leading-relaxed text-neutral-300 reveal reveal-delay-1" set:html={t.about.description}>
+    </p>
+    <div class="mt-12 grid gap-8 sm:grid-cols-3">
+      <div class="rounded-lg border border-neutral-800 bg-neutral-900/50 p-6 reveal reveal-delay-2 transition-all duration-300 hover:-translate-y-1 hover:border-amber-500/50 hover:shadow-lg hover:shadow-amber-500/5">
+        <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-lg bg-amber-500/10">
+          <Icon name={t.about.highlights[0].icon} class="h-6 w-6 text-amber-400" />
+        </div>
+        <h3 class="mt-4 font-semibold text-white">{t.about.highlights[0].title}</h3>
+        <p class="mt-2 text-sm text-neutral-400">
+          {t.about.highlights[0].text}
+        </p>
+      </div>
+      <div class="rounded-lg border border-neutral-800 bg-neutral-900/50 p-6 reveal reveal-delay-3 transition-all duration-300 hover:-translate-y-1 hover:border-amber-500/50 hover:shadow-lg hover:shadow-amber-500/5">
+        <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-lg bg-amber-500/10">
+          <Icon name={t.about.highlights[1].icon} class="h-6 w-6 text-amber-400" />
+        </div>
+        <h3 class="mt-4 font-semibold text-white">{t.about.highlights[1].title}</h3>
+        <p class="mt-2 text-sm text-neutral-400">
+          {t.about.highlights[1].text}
+        </p>
+      </div>
+      <div class="rounded-lg border border-neutral-800 bg-neutral-900/50 p-6 reveal reveal-delay-4 transition-all duration-300 hover:-translate-y-1 hover:border-amber-500/50 hover:shadow-lg hover:shadow-amber-500/5">
+        <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-lg bg-amber-500/10">
+          <Icon name={t.about.highlights[2].icon} class="h-6 w-6 text-amber-400" />
+        </div>
+        <h3 class="mt-4 font-semibold text-white">{t.about.highlights[2].title}</h3>
+        <p class="mt-2 text-sm text-neutral-400">
+          {t.about.highlights[2].text}
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

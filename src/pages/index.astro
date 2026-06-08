@@ -1,17 +1,41 @@
 ---
-
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+import Trailer from "../components/Trailer.astro";
+import About from "../components/About.astro";
+import Features from "../components/Features.astro";
+import SystemRequirements from "../components/SystemRequirements.astro";
+import Languages from "../components/Languages.astro";
+import Gallery from "../components/Gallery.astro";
+import Roadmap from "../components/Roadmap.astro";
+import FAQ from "../components/FAQ.astro";
+import Developer from "../components/Developer.astro";
+import Community from "../components/Community.astro";
+import Footer from "../components/Footer.astro";
+import ScrollToTop from "../components/ScrollToTop.astro";
+import { es } from "../i18n";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout lang="es">
+  <Header lang="es" t={es} />
+  <Hero t={es} />
+  <Trailer t={es} />
+  <About t={es} />
+  <Features t={es} />
+  <SystemRequirements t={es} />
+  <Languages t={es.languages} />
+  <Gallery t={es} />
+  <Roadmap t={es} />
+  <FAQ t={es} />
+  <Developer t={es} />
+  <Community t={es} />
+  <Footer t={es} />
+  <ScrollToTop t={es} />
+</BaseLayout>
+
+<style is:global>
+  html {
+    scroll-behavior: smooth;
+  }
+</style>

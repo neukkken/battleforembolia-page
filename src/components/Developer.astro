@@ -1,0 +1,65 @@
+---
+import devBanner from "../assets/images/ager-banner.png";
+import { es } from "../i18n";
+
+const { t = es } = Astro.props;
+
+const games = [
+  { name: "Manzaka", url: "https://store.steampowered.com/app/2759050/Manzaka/" },
+  { name: "This is Overpower", url: "https://agerarg.itch.io/this-is-overpower" },
+];
+---
+
+<section id="developer" class="relative min-h-[600px] bg-neutral-900 px-4 py-24 overflow-hidden">
+  <div class="absolute inset-0">
+    <img
+      src={devBanner.src}
+      alt=""
+      class="h-full w-full object-cover"
+      loading="lazy"
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/85 to-neutral-950/70" />
+  </div>
+  <div class="relative z-10 mx-auto flex max-w-4xl flex-col items-center justify-center min-h-[450px]">
+    <span class="inline-block rounded-full border border-amber-500/30 bg-amber-500/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-amber-400 reveal">
+      Studio
+    </span>
+    <h2 class="mt-6 font-medieval text-4xl text-white md:text-5xl reveal reveal-delay-1">
+      {t.developer.name}
+    </h2>
+    <p class="mt-4 max-w-2xl text-center text-base leading-relaxed text-neutral-300 reveal reveal-delay-2" set:html={t.developer.p1}>
+    </p>
+    <div class="mt-8 flex flex-wrap items-center justify-center gap-6 reveal reveal-delay-3">
+      <a
+        href="https://agergames.com.ar"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 rounded-lg bg-amber-500 px-6 py-3 font-bold text-neutral-950 transition-all hover:bg-amber-400 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-amber-500/25"
+      >
+        {t.developer.link}
+        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+      </a>
+      <a
+        href="https://store.steampowered.com/curator/45334341"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 rounded-lg border border-neutral-700 px-6 py-3 text-sm font-semibold text-neutral-300 transition-all hover:border-amber-500 hover:text-amber-400 hover:-translate-y-0.5"
+      >
+        Steam Curator
+      </a>
+    </div>
+    <div class="mt-12 flex flex-wrap items-center justify-center gap-8 reveal reveal-delay-4">
+      {games.map((game) => (
+        <a
+          href={game.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group flex items-center gap-2 text-sm text-neutral-500 transition-colors hover:text-amber-400"
+        >
+          <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          <span class="group-hover:text-white transition-colors">{game.name}</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

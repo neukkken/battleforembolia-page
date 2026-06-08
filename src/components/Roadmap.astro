@@ -1,0 +1,28 @@
+---
+import { es } from "../i18n";
+
+const { t = es } = Astro.props;
+---
+
+<section id="roadmap" class="bg-neutral-900 px-4 py-24">
+  <div class="mx-auto max-w-3xl">
+    <h2 class="text-center font-medieval text-3xl text-amber-400 md:text-4xl">{t.roadmap.title}</h2>
+    <p class="mt-4 text-center text-neutral-400">
+      {t.roadmap.description}
+    </p>
+    <div class="mt-12 space-y-8">
+      {t.roadmap.steps.map((step, i) => (
+      <div class={`flex gap-4 reveal reveal-delay-${Math.min(i + 1, 5)}`}>
+        <div class="flex flex-col items-center">
+          <span class={`flex h-10 w-10 items-center justify-center rounded-full ${i === 0 ? 'bg-amber-500 text-neutral-950' : 'border-2 border-amber-500 text-amber-400'} text-sm font-bold transition-transform duration-300 hover:scale-110`}>{i === 0 ? '✓' : i + 1}</span>
+          {i < t.roadmap.steps.length - 1 && <div class="mt-1 w-px flex-1 bg-neutral-700"></div>}
+        </div>
+        <div class={i < t.roadmap.steps.length - 1 ? 'pb-8' : ''}>
+          <h3 class="text-lg font-semibold text-white">{step.title}</h3>
+          <p class="mt-1 text-sm text-neutral-400">{step.text}</p>
+        </div>
+      </div>
+      ))}
+    </div>
+  </div>
+</section>

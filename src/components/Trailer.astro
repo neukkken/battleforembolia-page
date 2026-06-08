@@ -1,0 +1,22 @@
+---
+import { es } from "../i18n";
+
+const { t = es } = Astro.props;
+---
+
+<section id="trailer" class="bg-neutral-900 px-4 py-24">
+  <div class="mx-auto max-w-4xl text-center">
+    <h2 class="font-medieval text-3xl text-amber-400 md:text-4xl reveal">{t.trailer.title}</h2>
+    <div class="mt-8 aspect-video w-full overflow-hidden rounded-lg reveal reveal-delay-1">
+      <iframe
+        class="h-full w-full"
+        src="https://www.youtube-nocookie.com/embed/CZse4Et9XfI"
+        title="Battle For Embolia Trailer"
+        allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+        loading="lazy"
+      >
+      </iframe>
+    </div>
+  </div>
+</section>

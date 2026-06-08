@@ -1,0 +1,8 @@
+# Battle For Embolia - Static site redirects and headers
+
+/   /  200  Language=es
+/en/*   /en/:splat  200
+404.html   /404.html  404
+
+# Redirect to language-specific versions based on Accept-Language
+/*  /  302  Language=!es

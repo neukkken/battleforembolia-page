@@ -1,0 +1,60 @@
+---
+import { es } from "../i18n";
+
+const { t = es } = Astro.props;
+---
+
+<section id="faq" class="px-4 py-24">
+  <div class="mx-auto max-w-3xl">
+    <h2 class="text-center font-medieval text-3xl text-amber-400 md:text-4xl">{t.faq.title}</h2>
+    <div class="mt-12 space-y-3">
+      {t.faq.items.map((faq, i) => (
+        <details class="group rounded-lg border border-neutral-800 bg-neutral-900/50 transition-all duration-300 open:border-amber-500/50 hover:border-neutral-700 reveal" style={`transition-delay: ${i * 0.05}s`}>
+          <summary class="flex cursor-pointer items-center justify-between px-6 py-4 text-white font-medium hover:text-amber-400 transition-colors">
+            {faq.q}
+            <svg class="h-4 w-4 shrink-0 text-neutral-500 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </summary>
+          <div class="px-6 pb-4 text-sm text-neutral-400 leading-relaxed transition-all duration-300">
+            <Fragment set:html={faq.a} />
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  function showToast(msg) {
+    const existing = document.querySelector("[data-toast]");
+    if (existing) existing.remove();
+
+    const toast = document.createElement("div");
+    toast.dataset.toast = "";
+    toast.textContent = msg;
+    toast.className = "fixed bottom-6 left-1/2 -translate-x-1/2 z-[999] rounded-lg bg-emerald-600 px-5 py-3 text-sm font-semibold text-white shadow-lg animate-fade-in-up";
+    toast.style.setProperty("animation-duration", "0.3s");
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 2200);
+  }
+
+  document.querySelectorAll("[data-copy-email]").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const email = btn.textContent?.trim();
+      if (!email) return;
+      try {
+        await navigator.clipboard.writeText(email);
+        showToast("✓ " + (document.documentElement.lang === "en" ? "Copied!" : "¡Correo copiado!"));
+      } catch {
+        const ta = document.createElement("textarea");
+        ta.value = email;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        document.body.removeChild(ta);
+        showToast("✓ " + (document.documentElement.lang === "en" ? "Copied!" : "¡Correo copiado!"));
+      }
+    });
+  });
+</script>
