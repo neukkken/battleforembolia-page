@@ -14,11 +14,11 @@ const en: Translations = {
       { href: "#faq", label: "FAQ" },
       { href: "#community", label: "Community" },
     ],
-    cta: "Play Free",
+    cta: "Play Now",
   },
   hero: {
-    tagline: "A fast-paced indie MMORPG. Dynamic combat. Meaningful progression. Free to play.",
-    steam: "Play Free on Steam",
+    tagline: "A fast-paced indie MMORPG. Dynamic combat. Meaningful progression.",
+    steam: "Play on Steam",
     itch: "View on Itch.io",
     wishlist: "Add to Wishlist",
     releaseLabel: "Early Access Launch",
@@ -48,7 +48,6 @@ const en: Translations = {
       { icon: "lucide:users", title: "PvP & Co-op", text: "Group activities, challenging encounters, and more PvP content coming soon." },
       { icon: "lucide:crosshair", title: "Raid Boss", text: "The game's first raid encounter. Learn the mechanics and overcome one of the strongest enemies." },
       { icon: "lucide:message-circle", title: "Community Driven", text: "The game evolves every week through player feedback. Your opinion matters." },
-      { icon: "lucide:check-check", title: "Fair F2P", text: "Completely free to play. No pay-to-win. All core content always accessible." },
     ],
   },
   languages: {
@@ -69,7 +68,6 @@ const en: Translations = {
   faq: {
     title: "FAQ",
     items: [
-      { q: "Is Battle For Embolia free?", a: "Yes, it's completely free. No pay-to-win. All core content is accessible to everyone." },
       { q: "What platforms is it available on?", a: "Currently available on Steam for Windows. More platforms will be evaluated based on demand." },
       { q: "Does it have multiplayer?", a: "Yes, it's an MMORPG with cooperative activities, PvP, and raids. Play with friends or the community." },
       { q: "How often does it get updates?", a: "The game evolves every week with updates based on community feedback." },

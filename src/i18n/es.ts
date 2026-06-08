@@ -14,11 +14,11 @@ const es: Translations = {
       { href: "#faq", label: "FAQ" },
       { href: "#community", label: "Comunidad" },
     ],
-    cta: "Jugar Gratis",
+    cta: "Jugar Ahora",
   },
   hero: {
-    tagline: "Un MMORPG indie de acción. Combate dinámico. Progresión significativa. Gratuito.",
-    steam: "Juega gratis en Steam",
+    tagline: "Un MMORPG indie de acción. Combate dinámico. Progresión significativa.",
+    steam: "Jugar en Steam",
     itch: "Ver en Itch.io",
     wishlist: "Añadir a Lista de Deseos",
     releaseLabel: "Lanzamiento Early Access",
@@ -48,7 +48,6 @@ const es: Translations = {
       { icon: "lucide:users", title: "PvP y Cooperativo", text: "Actividades grupales, encuentros desafiantes y próximamente más contenido PvP." },
       { icon: "lucide:crosshair", title: "Raid Boss", text: "La primera incursión del juego. Aprende las mecánicas y enfréntate a uno de los enemigos más fuertes." },
       { icon: "lucide:message-circle", title: "Hecho con la comunidad", text: "El juego evoluciona cada semana con el feedback de los jugadores. Tu opinión importa." },
-      { icon: "lucide:check-check", title: "F2P justo", text: "Completamente gratuito. Sin pay-to-win. Todo el contenido principal siempre accesible." },
     ],
   },
   languages: {
@@ -69,7 +68,6 @@ const es: Translations = {
   faq: {
     title: "FAQ",
     items: [
-      { q: "¿Battle For Embolia es gratuito?", a: "Sí, es completamente gratuito. No tiene pay-to-win. Todo el contenido principal es accesible para todos los jugadores." },
       { q: "¿En qué plataformas está disponible?", a: "Actualmente disponible en Steam para Windows. Próximamente se evaluarán más plataformas según la demanda." },
       { q: "¿Tiene modo multijugador?", a: "Sí, es un MMORPG con actividades cooperativas, PvP y raids. Puedes jugar con amigos o con la comunidad." },
       { q: "¿Cada cuánto recibe actualizaciones?", a: "El juego evoluciona cada semana con actualizaciones basadas en el feedback de la comunidad." },
