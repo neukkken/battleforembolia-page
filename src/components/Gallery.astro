@@ -36,7 +36,7 @@ const { t = es } = Astro.props;
             src={img}
             alt={`${t.gallery.alt} ${i + 1}`}
             class="w-full transition-transform duration-300 group-hover:scale-105"
-            loading="lazy"
+            loading="eager"
             widths={[400, 800, 1200]}
             formats={["avif", "webp", "jpeg"]}
           />
@@ -197,13 +197,5 @@ const { t = es } = Astro.props;
     if (e.key === "ArrowRight") nextImage();
   });
 
-  const observer = new IntersectionObserver((entries) => {
-    for (const entry of entries) {
-      if (entry.isIntersecting) {
-        images.forEach((src, i) => prefetch(i));
-        observer.disconnect();
-      }
-    }
-  }, { rootMargin: "200px" });
-  observer.observe(gallery);
+  images.forEach((src, i) => prefetch(i));
 </script>
