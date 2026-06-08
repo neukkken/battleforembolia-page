@@ -13,7 +13,7 @@ const rootHref = lang === "en" ? "/en/" : "/";
     </a>
 
     <!-- Desktop nav -->
-    <ul class="hidden [900px]:flex items-center gap-6 text-sm font-medium text-neutral-300" aria-label="Secciones de la página">
+    <ul class="hidden desktop:flex items-center gap-6 text-sm font-medium text-neutral-300" aria-label="Secciones de la página">
       {t.header.links.map((link) => (
         <li>
           <a href={link.href} class="hover:text-amber-400 transition-colors">
@@ -24,7 +24,7 @@ const rootHref = lang === "en" ? "/en/" : "/";
     </ul>
 
     <!-- Desktop right section -->
-    <div class="hidden [900px]:flex items-center gap-3">
+    <div class="hidden desktop:flex items-center gap-3">
       <LangSwitcher lang={lang} />
       <a
         href="https://store.steampowered.com/app/3462790/Battle_For_Embolia"
@@ -40,7 +40,7 @@ const rootHref = lang === "en" ? "/en/" : "/";
     </div>
 
     <!-- Mobile hamburger -->
-    <button data-menu-toggle class="[900px]:hidden rounded p-2 text-neutral-300 hover:text-amber-400 transition-colors relative z-50" aria-label={t.menuOpen} aria-expanded="false" data-label-open={t.menuOpen} data-label-close={t.menuClose}>
+    <button data-menu-toggle class="desktop:hidden rounded p-2 text-neutral-300 hover:text-amber-400 transition-colors relative z-50" aria-label={t.menuOpen} aria-expanded="false" data-label-open={t.menuOpen} data-label-close={t.menuClose}>
       <svg class="h-6 w-6 overflow-visible" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path class="line-top transition-all duration-300 ease-in-out" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16" />
         <path class="line-middle transition-all duration-300 ease-in-out" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 12h16" />
@@ -51,10 +51,10 @@ const rootHref = lang === "en" ? "/en/" : "/";
 </header>
 
 <!-- Mobile menu backdrop -->
-<div data-menu-backdrop class="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm opacity-0 invisible transition-all duration-300 [900px]:hidden" />
+<div data-menu-backdrop class="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm opacity-0 invisible transition-all duration-300 desktop:hidden" />
 
 <!-- Mobile menu panel -->
-<div data-menu class="fixed top-0 right-0 z-50 h-full w-full max-w-sm bg-neutral-950 border-l border-neutral-800 opacity-0 invisible translate-x-full transition-all duration-300 ease-in-out [900px]:hidden flex flex-col">
+<div data-menu class="fixed top-0 right-0 z-50 h-full w-full max-w-sm bg-neutral-950 border-l border-neutral-800 opacity-0 invisible translate-x-full transition-all duration-300 ease-in-out desktop:hidden flex flex-col">
   <div class="flex items-center justify-between border-b border-neutral-800 px-5 py-4">
     <a href={rootHref} class="font-medieval text-lg tracking-wider text-amber-400">BFE</a>
     <button data-menu-close class="rounded p-2 text-neutral-400 hover:text-amber-400 transition-colors" aria-label={t.menuClose}>

@@ -3,6 +3,7 @@
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-medieval: "MedievalSharp", cursive;
+  --breakpoint-desktop: 900px;
 
   --animate-fade-in: fade-in 0.8s ease-out forwards;
   --animate-fade-in-up: fade-in-up 0.8s ease-out forwards;
