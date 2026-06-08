@@ -54,7 +54,7 @@ const rootHref = lang === "en" ? "/en/" : "/";
 <div data-menu-backdrop class="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm opacity-0 invisible transition-all duration-300 [900px]:hidden" />
 
 <!-- Mobile menu panel -->
-<div data-menu class="fixed top-0 right-0 z-50 h-full w-full max-w-sm bg-neutral-950 border-l border-neutral-800 translate-x-full transition-all duration-300 ease-in-out [900px]:hidden flex flex-col">
+<div data-menu class="fixed top-0 right-0 z-50 h-full w-full max-w-sm bg-neutral-950 border-l border-neutral-800 opacity-0 invisible translate-x-full transition-all duration-300 ease-in-out [900px]:hidden flex flex-col">
   <div class="flex items-center justify-between border-b border-neutral-800 px-5 py-4">
     <a href={rootHref} class="font-medieval text-lg tracking-wider text-amber-400">BFE</a>
     <button data-menu-close class="rounded p-2 text-neutral-400 hover:text-amber-400 transition-colors" aria-label={t.menuClose}>
@@ -104,8 +104,8 @@ const rootHref = lang === "en" ? "/en/" : "/";
   const botLine = document.querySelector(".line-bottom");
   const html = document.documentElement;
 
-  const MENU_CLOSED = ["max-[900px]:opacity-0", "max-[900px]:invisible", "max-[900px]:translate-x-full"];
-  const MENU_OPEN = ["max-[900px]:opacity-100", "max-[900px]:visible", "max-[900px]:translate-x-0"];
+  const MENU_CLOSED = ["opacity-0", "invisible", "translate-x-full"];
+  const MENU_OPEN = ["opacity-100", "visible", "translate-x-0"];
   const BACKDROP_CLOSED = ["opacity-0", "invisible"];
   const BACKDROP_OPEN = ["opacity-100", "visible"];
 
