@@ -1,10 +1,10 @@
 ---
 import { Image } from "astro:assets";
 import bgImage from "../assets/images/hero/title1.jpg";
-import logoImage from "../assets/images/titletext.png";
-import itchBanner from "../assets/images/itch-banner.png";
-import steamImage from "../assets/images/steamLink.png";
-import itchAlpha from "../assets/images/itchAlpha.png";
+import logoImage from "../assets/images/titletext.webp";
+import itchBanner from "../assets/images/itch-banner.webp";
+import steamImage from "../assets/images/steamLink.webp";
+import itchAlpha from "../assets/images/itchAlpha.webp";
 import { es } from "../i18n";
 
 const { t = es } = Astro.props;
@@ -23,8 +23,8 @@ const { t = es } = Astro.props;
     <div class="absolute inset-0 bg-gradient-to-b from-neutral-950/70 via-neutral-950/60 to-neutral-950" />
   </div>
   <div class="relative z-10 mx-auto max-w-4xl px-4 text-center">
-    <img
-      src={logoImage.src}
+    <Image
+      src={logoImage}
       alt="Battle For Embolia"
       class="mx-auto h-auto w-full max-w-md md:max-w-xl animate-fade-in-down"
       loading="eager"
@@ -43,7 +43,7 @@ const { t = es } = Astro.props;
         rel="noopener noreferrer"
         class="block w-48 transition-all duration-300 hover:scale-105 hover:opacity-90"
       >
-        <img src={steamImage.src} alt={t.hero.wishlist} class="w-full" />
+        <Image src={steamImage} alt={t.hero.wishlist} class="w-full" loading="eager" />
       </a>
       <a
         href="https://agerarg.itch.io/battle-for-embolia"
@@ -51,13 +51,13 @@ const { t = es } = Astro.props;
         rel="noopener noreferrer"
         class="block w-48 transition-all duration-300 hover:scale-105 hover:opacity-90"
       >
-        <img src={itchAlpha.src} alt="Alpha Testing" class="w-full" />
+        <Image src={itchAlpha} alt="Alpha Testing" class="w-full" loading="eager" />
       </a>
     </div>
     <div data-buttons-post class="mt-6 hidden flex-wrap items-center justify-center gap-3 animate-fade-in-up" style="animation-delay: 1.3s; opacity: 0; animation-fill-mode: forwards;">
       <div class="w-80">
         <div class="overflow-hidden rounded-t-xl border border-neutral-800">
-          <img src={itchBanner.src} alt="Battle For Embolia" class="w-full" />
+          <Image src={itchBanner} alt="Battle For Embolia" class="w-full" loading="lazy" />
         </div>
         <div class="flex gap-2 rounded-b-xl border border-t-0 border-neutral-800 bg-neutral-900 p-4">
           <a

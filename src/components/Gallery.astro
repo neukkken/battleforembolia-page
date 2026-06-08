@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import { es } from "../i18n";
 import ss1 from "../assets/images/screenshots/ss1.jpg";
 import ss2 from "../assets/images/screenshots/ss2.jpg";
@@ -7,9 +8,9 @@ import ss4 from "../assets/images/screenshots/ss4.jpg";
 import ss5 from "../assets/images/screenshots/ss5.jpg";
 import ss6 from "../assets/images/screenshots/ss6.jpg";
 
-const localImgs = [ss1, ss2, ss3, ss4, ss5, ss6];
+const images = [ss1, ss2, ss3, ss4, ss5, ss6];
 
-const screenshots = localImgs.map((img) => img.src);
+const screenshots = images.map((img) => img.src);
 
 const { t = es } = Astro.props;
 
@@ -20,17 +21,19 @@ const fullImages = screenshots;
   <div class="mx-auto max-w-6xl">
     <h2 class="text-center font-medieval text-3xl text-amber-400 md:text-4xl reveal">{t.gallery.title}</h2>
     <div class="mt-12 columns-1 gap-4 sm:columns-2 lg:columns-3">
-      {screenshots.map((src, i) => (
+      {images.map((img, i) => (
         <button
           data-gallery-thumb={i}
           class="group relative mb-4 block w-full overflow-hidden rounded-lg border border-neutral-800 text-left cursor-pointer reveal transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-amber-500/10 hover:border-amber-500/30"
           style={`transition-delay: ${i * 0.1}s`}
         >
-          <img
-            src={src}
+          <Image
+            src={img}
             alt={`${t.gallery.alt} ${i + 1}`}
             class="w-full transition-transform duration-300 group-hover:scale-105"
             loading="lazy"
+            widths={[400, 800, 1200]}
+            formats={["avif", "webp", "jpeg"]}
           />
           <div class="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors group-hover:bg-black/40">
             <span class="rounded-full bg-white/20 p-3 text-white opacity-0 transition-opacity group-hover:opacity-100">

@@ -1,5 +1,6 @@
 ---
-import devBanner from "../assets/images/ager-banner.png";
+import { Image } from "astro:assets";
+import devBanner from "../assets/images/ager-banner.webp";
 import { es } from "../i18n";
 
 const { t = es } = Astro.props;
@@ -12,11 +13,13 @@ const games = [
 
 <section id="developer" class="relative min-h-[600px] bg-neutral-900 px-4 py-24 overflow-hidden">
   <div class="absolute inset-0">
-    <img
-      src={devBanner.src}
+    <Image
+      src={devBanner}
       alt=""
       class="h-full w-full object-cover"
       loading="lazy"
+      widths={[640, 1024, 1920]}
+      formats={["avif", "webp", "jpeg"]}
     />
     <div class="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/85 to-neutral-950/70" />
   </div>
